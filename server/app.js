@@ -6,6 +6,9 @@ const controllers = require("./controllers");
 
 app.use(Express.json())
 
+// app.use("/user", controllers.userController);
+
+// app.use(require("./middleware/validate-jwt"));
 app.use("/notes", controllers.notesController);
 
 dbConnection.authenticate()
