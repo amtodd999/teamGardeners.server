@@ -4,19 +4,17 @@ const dbConnection = require("./db");
 
 const controllers = require("./controllers");
 
-app.use("/notes", controllers.notescontrollers);
+app.use(Express.json())
+
+app.use("/notes", controllers.notesController);
 
 dbConnection.authenticate()
     .then(() => dbConnection.sync())
     .then(() => {
-        app.listening(3000, () => {
+        app.listen(3000, () => {
             console.log(`[Server]: App is listening on 3000.`)
         });
     })
     .catch((err) => {
         console.log(`[Server]: Server crashed. Error = ${err}`);
-    })
-
-app.listen(3000, () => {
-    console.log(`[Server]: App is listening on 3000, Yay!`);
-});
+    });
