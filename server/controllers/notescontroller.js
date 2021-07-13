@@ -1,28 +1,40 @@
 const { Router } = require("express");
 const Express = require("express");
 const router = Express.Router();
+const { NotesModel } = require("../models/notes");
 
-const {NotesModel} = require("../models");
-
-router.get(`/practice`, (req, res) => {
-    res.send('Hey this is practice')
-});
-
-router.post("/create", (async (req, res) => {
-    const { plant_name, note, owner_id } = req.body.note;//owner_id will need to removed
-    //const { id } = req.user;
-    const noteEntry = {
+// Amelia create/add note
+router.post("/add", async (req, res) => {
+    const { plant_name, note, owner_id } = req.body.note; // removed owner id when using JTW
+    // const { id } = req.user; // add back when adding JWT
+    const plantNote = {
         plant_name,
         note,
         owner_id
     }
     try {
-        const newNote = await NotesModel.create(noteEntry);
+
+        const newNote = await NotesModel.create(plantNote);
         res.status(200).json(newNote);
-    } catch(err) {
-        res.status(500).json({error: err});
+    } catch (err) {
+        res.status(500).json({ error: err });
     }
-}))
+});
+
+// Amelia GET notes by owner
+// router.get("/myNotes", async (req, res) => {
+//     // const { id } = req.user;
+//     try {
+//         const userNotes = await JournalModel.findAll({
+//             where: {
+//                 owner_id: id
+//             }
+//         });
+//         res.status(200).json(userNotes);
+//     } catch (err) {
+//         res.status(500).json({ error: err });
+//     }
+// });
 
 //Update a Note
 router.put("/update/:idToUpdate", async (req, res) => {
@@ -71,8 +83,5 @@ router.delete("/delete/:idToDelete", async (req, res) => {
     }
 })
 
-router.get('/practice', (req, res) => {
-    res.send('Hey!! This is a practice route!')
-});
-
 module.exports = router;
+
