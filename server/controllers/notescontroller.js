@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const Express = require("express");
 const router = Express.Router();
+
 const {NotesModel} = require("../models");
 
 router.get(`/practice`, (req, res) => {
@@ -68,6 +69,10 @@ router.delete("/delete/:idToDelete", async (req, res) => {
     } catch(err) {
         res.status(500).json({error: err});
     }
+
+
+router.get('/practice', (req, res) => {
+    res.send('Hey!! This is a practice route!')
 });
 
 module.exports = router;
