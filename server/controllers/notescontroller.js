@@ -69,7 +69,7 @@ router.delete("/delete/:idToDelete", async (req, res) => {
     } catch(err) {
         res.status(500).json({error: err});
     }
-
+})
 
 router.get('/practice', (req, res) => {
     res.send('Hey!! This is a practice route!')
