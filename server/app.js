@@ -25,4 +25,3 @@ db.authenticate()
     console.log("[Server: ] Server Crashed");
     console.error(err);
   });
-

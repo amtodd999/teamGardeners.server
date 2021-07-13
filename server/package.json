@@ -1,15 +1,21 @@
 {
-  "name": "team-gardeners-server",
+  "name": "teamgardeners.server",
   "version": "1.0.0",
-  "description": "Plant info application",
+  "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amtodd999/teamGardeners.server.git"
   },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amtodd999/teamGardeners.server/issues"
+  },
+  "homepage": "https://github.com/amtodd999/teamGardeners.server#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
