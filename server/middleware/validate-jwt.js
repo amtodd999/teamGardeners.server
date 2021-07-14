@@ -8,6 +8,7 @@ const validateSession = async (req, res, next) => {
         req.headers.authorization &&
         req.headers.authorization.includes("Bearer")
     ) {
+
         const { authorization } = req.headers;
         // console.log("authorization -->", authorization);
         const payload = authorization
