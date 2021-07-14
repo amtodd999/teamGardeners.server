@@ -24,37 +24,38 @@ router.post("/add",  async (req, res) => {
 });
 
 // Amelia GET notes by owner
-// router.get("/myNotes", async (req, res) => {
-//     // const { id } = req.user;
-//     try {
-//         const userNotes = await JournalModel.findAll({
-//             where: {
-//                 owner_id: id
-//             }
-//         });
-//         res.status(200).json(userNotes);
-//     } catch (err) {
-//         res.status(500).json({ error: err });
-//     }
-// });
+router.get("/myNotes", (async (req, res) => {
+    const { id } = req.user;
+    try {
+        const userNotes = await NotesModel.findAll({
+            where: {
+                owner_id: id
+            }
+        });
+        res.status(200).json(userNotes);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+}));
 
 //Update a Note
 router.put("/update/:idToUpdate",  async (req, res) => {
-    const {plant_name, note} = req.body.note;
+    const {plant_name, note} = req.body.notes;
     const noteId = req.params.idToUpdate;
     const userId = req.user.id;
 
     const query = {
         where: {
             id: noteId,
-            owner: userId
+            owner_id: userId
             //will need to add in validation of user later
         }
     };
 
     const updatedNote = {
         plant_name: plant_name,
-        note: note
+        note: note,
+        owner_id: userId
     };
 
     try {
@@ -74,7 +75,7 @@ router.delete("/delete/:idToDelete", async (req, res) => {
         const query = {
             where: {
                 id: noteId,
-                owner: ownerId
+                owner_id: ownerId
             }
         };
 
