@@ -3,13 +3,12 @@ const Express = require("express");
 const router = Express.Router();
 let validateJWT = require("../middleware/validate-jwt");
 
-
-const { NotesModel } = require("../models/notes");
+const { NotesModel } = require("../models");
 
 // Amelia create/add note
-router.post("/add", validateJWT, async (req, res) => {
-    const { plant_name, note } = req.body.note; 
-    const id = req.user; 
+router.post("/add",  async (req, res) => {
+    const { plant_name, note } = req.body.notes; 
+    const id = req.user.id; 
     const plantNote = {
         plant_name,
         note,
@@ -40,7 +39,7 @@ router.post("/add", validateJWT, async (req, res) => {
 // });
 
 //Update a Note
-router.put("/update/:idToUpdate", validateJWT, async (req, res) => {
+router.put("/update/:idToUpdate",  async (req, res) => {
     const {plant_name, note} = req.body.note;
     const noteId = req.params.idToUpdate;
     const userId = req.user.id;
@@ -67,7 +66,7 @@ router.put("/update/:idToUpdate", validateJWT, async (req, res) => {
 });
 
 //Delete a note
-router.delete("/delete/:idToDelete",validateJWT, async (req, res) => {
+router.delete("/delete/:idToDelete", async (req, res) => {
     const ownerId = req.user.id 
     const noteId = req.params.idToDelete;
 
