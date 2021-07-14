@@ -1,16 +1,18 @@
 const { Router } = require("express");
 const Express = require("express");
 const router = Express.Router();
-const { NotesModel } = require("../models/notes");
+let validateJWT = require("../middleware/validate-jwt");
+
+const { NotesModel } = require("../models");
 
 // Amelia create/add note
-router.post("/add", async (req, res) => {
-    const { plant_name, note, owner_id } = req.body.note; // removed owner id when using JTW
-    // const { id } = req.user; // add back when adding JWT
+router.post("/add",  async (req, res) => {
+    const { plant_name, note } = req.body.notes; 
+    const id = req.user.id; 
     const plantNote = {
         plant_name,
         note,
-        owner_id
+        owner_id: id
     }
     try {
 
@@ -22,37 +24,38 @@ router.post("/add", async (req, res) => {
 });
 
 // Amelia GET notes by owner
-// router.get("/myNotes", async (req, res) => {
-//     // const { id } = req.user;
-//     try {
-//         const userNotes = await JournalModel.findAll({
-//             where: {
-//                 owner_id: id
-//             }
-//         });
-//         res.status(200).json(userNotes);
-//     } catch (err) {
-//         res.status(500).json({ error: err });
-//     }
-// });
+router.get("/myNotes", (async (req, res) => {
+    const { id } = req.user;
+    try {
+        const userNotes = await NotesModel.findAll({
+            where: {
+                owner_id: id
+            }
+        });
+        res.status(200).json(userNotes);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+}));
 
 //Update a Note
-router.put("/update/:idToUpdate", async (req, res) => {
-    const {plant_name, note, owner_id} = req.body.note;
+router.put("/update/:idToUpdate",  async (req, res) => {
+    const {plant_name, note} = req.body.notes;
     const noteId = req.params.idToUpdate;
-    //const userId = req.user.id;
+    const userId = req.user.id;
 
     const query = {
         where: {
-            id: noteId 
-            //,owner: userId
+            id: noteId,
+            owner_id: userId
             //will need to add in validation of user later
         }
     };
 
     const updatedNote = {
         plant_name: plant_name,
-        note: note
+        note: note,
+        owner_id: userId
     };
 
     try {
@@ -65,14 +68,14 @@ router.put("/update/:idToUpdate", async (req, res) => {
 
 //Delete a note
 router.delete("/delete/:idToDelete", async (req, res) => {
-    //const ownerId = req.user.id //this will need to be added later
+    const ownerId = req.user.id 
     const noteId = req.params.idToDelete;
 
     try {
         const query = {
             where: {
-                id: noteId
-                //,owner: ownerId
+                id: noteId,
+                owner_id: ownerId
             }
         };
 
