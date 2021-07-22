@@ -4,7 +4,7 @@ const db = require("./db");
 
 const app = express();
 
-app.use(require("./middleware/headers"));
+app.use(require('./middleware/headers'));
 
 const controllers = require("./controllers");
 
@@ -13,6 +13,7 @@ app.use(express.json());
 app.use("/user", controllers.userController);
 app.use(require("./middleware/validate-jwt"));
 app.use("/notes", controllers.notesController);
+app.use("/photo", controllers.photoController);
 
 db.authenticate()
   .then(() => db.sync()) // => {force: true} this means delete databases
