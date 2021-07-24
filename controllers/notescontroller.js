@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const Express = require("express");
 const router = Express.Router();
-const axios = require("axios");
 let validateJWT = require("../middleware/validate-jwt");
 
 const { NotesModel } = require("../models");
@@ -16,7 +15,6 @@ router.post("/add", async (req, res) => {
         owner_id: id
     }
     try {
-
         const newNote = await NotesModel.create(plantNote);
         res.status(200).json(newNote);
     } catch (err) {

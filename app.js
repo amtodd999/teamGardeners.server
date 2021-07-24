@@ -3,6 +3,7 @@ const express = require("express");
 const db = require("./db");
 
 const app = express();
+// const app=express().use('*', cors());
 
 app.use(require('./middleware/headers'));
 
