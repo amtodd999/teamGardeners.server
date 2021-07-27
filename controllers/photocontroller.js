@@ -7,15 +7,16 @@ const { NotesModel } = require("../models");
 
 
 router.put("/update/:idAddPhoto", async (req, res) => {
-    const { plant_name } = req.body.notes;
     const noteId = req.params.idAddPhoto;
+    const { plant_name } = req.body.notes;
     const userId = req.user.id;
+
 
     const query = { where: { id: noteId, owner_id: userId } };
 
     try {
         const response = await fetch(`https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_KEY}&page=1&query=${plant_name}`);
-        
+        console.log("LOOK HERE", plant_name);
         const photo = await response.json();
         console.log("PHOTO", photo)
         
