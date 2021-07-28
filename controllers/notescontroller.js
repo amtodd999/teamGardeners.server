@@ -5,7 +5,7 @@ let validateJWT = require("../middleware/validate-jwt");
 
 const { NotesModel } = require("../models");
 
-// Amelia create/add note
+//create/add note
 router.post("/add",  async (req, res) => {
     const { plant_name, note } = req.body.notes; 
     const id = req.user.id; 
@@ -15,7 +15,6 @@ router.post("/add",  async (req, res) => {
         owner_id: id
     }
     try {
-
         const newNote = await NotesModel.create(plantNote);
         res.status(200).json(newNote);
     } catch (err) {
@@ -39,8 +38,8 @@ router.get("/myNotes", (async (req, res) => {
 }));
 
 //Update a Note
-router.put("/update/:idToUpdate",  async (req, res) => {
-    const {plant_name, note} = req.body.notes;
+router.put("/update/:idToUpdate", async (req, res) => {
+    const { plant_name, note } = req.body.notes;
     const noteId = req.params.idToUpdate;
     const userId = req.user.id;
 
@@ -48,7 +47,6 @@ router.put("/update/:idToUpdate",  async (req, res) => {
         where: {
             id: noteId,
             owner_id: userId
-            //will need to add in validation of user later
         }
     };
 
@@ -62,13 +60,13 @@ router.put("/update/:idToUpdate",  async (req, res) => {
         const update = await NotesModel.update(updatedNote, query);
         res.status(200).json(update);
     } catch (err) {
-        res.status(500).json({error: err});
+        res.status(500).json({ error: err });
     }
 });
 
 //Delete a note
 router.delete("/delete/:idToDelete", async (req, res) => {
-    const ownerId = req.user.id 
+    const ownerId = req.user.id
     const noteId = req.params.idToDelete;
 
     try {
@@ -80,9 +78,14 @@ router.delete("/delete/:idToDelete", async (req, res) => {
         };
 
         await NotesModel.destroy(query);
+        res.status(200).json({ message: "Your note has been deleted" });
+    } catch (err) {
+        res.status(500).json({ error: err });
+
         res.status(200).json({message: "Your note has been deleted"});
     } catch(err) {
         res.status(500).json({error: err});
+
     }
 })
 
