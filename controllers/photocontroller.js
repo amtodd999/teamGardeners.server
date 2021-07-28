@@ -8,7 +8,7 @@ const { NotesModel } = require("../models");
 
 router.put("/update/:idAddPhoto", async (req, res) => {
     const noteId = req.params.idAddPhoto;
-    const { plant_name } = req.body.notes;
+    const {plant_name} = req.body.notes;
     const userId = req.user.id;
 
 
@@ -16,9 +16,10 @@ router.put("/update/:idAddPhoto", async (req, res) => {
 
     try {
         const response = await fetch(`https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_KEY}&page=1&query=${plant_name}`);
-        console.log("LOOK HERE", plant_name);
+        
         const photo = await response.json();
-        console.log("PHOTO", photo)
+        console.log("PHOTO", plant_name);
+        console.log("BODY", req.body)
         
         const imgUrl = { photo: photo.results[0].urls.thumb };
         
