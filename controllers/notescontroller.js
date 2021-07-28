@@ -6,9 +6,9 @@ let validateJWT = require("../middleware/validate-jwt");
 const { NotesModel } = require("../models");
 
 //create/add note
-router.post("/add", async (req, res) => {
-    const { plant_name, note } = req.body.notes;
-    const id = req.user.id;
+router.post("/add",  async (req, res) => {
+    const { plant_name, note } = req.body.notes; 
+    const id = req.user.id; 
     const plantNote = {
         plant_name,
         note,
@@ -21,8 +21,6 @@ router.post("/add", async (req, res) => {
         res.status(500).json({ error: err });
     }
 });
-
-
 
 // Amelia GET notes by owner
 router.get("/myNotes", (async (req, res) => {
