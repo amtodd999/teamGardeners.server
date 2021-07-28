@@ -7,12 +7,16 @@ const Notes = db.define("notes", {
     },
     plant_name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     note: {
         type: DataTypes.STRING,
         allowNull: false,
-    }
+    },
+    photo: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
 });
 
 module.exports = Notes;
