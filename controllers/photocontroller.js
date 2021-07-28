@@ -26,6 +26,7 @@ router.put("/update/:idAddPhoto", async (req, res) => {
         const addPic = await NotesModel.update(imgUrl, query);
         res.status(200).json(addPic);
     } catch (err) {
+        console.log(err);
         res.status(500).json({ error: err });
     }
 })
