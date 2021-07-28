@@ -19,7 +19,8 @@ router.put("/update/:idAddPhoto", async (req, res) => {
         
         const photo = await response.json();
         console.log("PHOTO", plant_name);
-        console.log("BODY", req.body)
+        console.log(photo);
+        console.group(photo.results);
         
         const imgUrl = { photo: photo.results[0].urls.thumb };
         
