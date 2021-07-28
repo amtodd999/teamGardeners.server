@@ -81,11 +81,6 @@ router.delete("/delete/:idToDelete", async (req, res) => {
         res.status(200).json({ message: "Your note has been deleted" });
     } catch (err) {
         res.status(500).json({ error: err });
-
-        res.status(200).json({message: "Your note has been deleted"});
-    } catch(err) {
-        res.status(500).json({error: err});
-
     }
 })
 
