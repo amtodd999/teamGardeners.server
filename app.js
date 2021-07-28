@@ -18,7 +18,7 @@ app.use("/photo", controllers.photoController);
 
 
 db.authenticate()
-  .then(() => db.sync({force: true})) // => {force: true} this means delete databases
+  .then(() => db.sync()) // => {force: true} this means delete databases
   .then(() => {
     app.listen(process.env.PORT, () =>
       console.log(`[Server: ] App is listening on Port ${process.env.PORT}`)
